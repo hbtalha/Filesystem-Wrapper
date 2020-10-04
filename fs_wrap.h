@@ -32,7 +32,7 @@ void get_files_by_extension_in_directory_recursively(std::filesystem::path file_
 std::vector<std::filesystem::path> get_files_by_extension_in_directory(std::filesystem::path file_path, std::string extension);
 std::vector<std::filesystem::path> get_files_by_extension_in_directory_recursively(std::filesystem::path file_path, std::string extension);
 
-int number_of_files_by_extension_in_directory(std::filesystem::path file_path, std::filesystem::path extension);
+int number_of_files_by_extension_in_directory(std::filesystem::path file_path, std::string extension);
 int number_of_files_by_extension_in_directory_recursively(std::filesystem::path file_path, std::string extension);
 
 }
