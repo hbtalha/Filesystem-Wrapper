@@ -17,16 +17,12 @@ int number_of_entities_in_directory(path file_path, mode type)
         throw runtime_error("directory does not exist");
     }
 
-    directory_iterator it (file_path), endit;
-
-    while(it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(type == mode::FILE && is_regular_file(*it))
+        if(type == mode::FILE && is_regular_file(it))
             ++counter;
-        else if(type == mode::FOLDER && is_directory(*it))
+        else if(type == mode::FOLDER && is_directory(it))
             ++counter;
-
-        ++it;
     }
 
     return counter;
@@ -41,16 +37,12 @@ vector<path> entities_in_directory(path file_path, mode type)
         throw runtime_error("directory does not exist");
     }
 
-    directory_iterator it(file_path), endit;
-
-    while (it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(type == mode::FILE && is_regular_file(*it))
-            entities.push_back(it->path().filename());
-        else if(type == mode::FOLDER && is_directory(*it))
-            entities.push_back(it->path().filename());
-
-        ++it;
+        if(type == mode::FILE && is_regular_file(it))
+            entities.push_back(it.path().filename());
+        else if(type == mode::FOLDER && is_directory(it))
+            entities.push_back(it.path().filename());
     }
 
     return entities;
@@ -66,16 +58,12 @@ int number_of_entities_in_directory_recursively(path file_path,
         throw runtime_error("directory does not exist");
     }
 
-    recursive_directory_iterator it (file_path), endit;
-
-    while(it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(type == mode::FILE && is_regular_file(*it))
+        if(type == mode::FILE && is_regular_file(it))
             ++counter;
-        else if(type == mode::FOLDER && is_directory(*it))
+        else if(type == mode::FOLDER && is_directory(it))
             ++counter;
-
-        ++it;
     }
 
     return counter;
@@ -91,16 +79,12 @@ vector<path> entities_in_directory_recursively(path file_path,
         throw runtime_error("directory does not exist");
     }
 
-    recursive_directory_iterator it(file_path), endit;
-
-    while (it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(type == mode::FILE && is_regular_file(*it))
-            entities.push_back(it->path().filename());
-        else if(type == mode::FOLDER && is_directory(*it))
-            entities.push_back(it->path().filename());
-
-        ++it;
+        if(type == mode::FILE && is_regular_file(it))
+            entities.push_back(it.path().filename());
+        else if(type == mode::FOLDER && is_directory(it))
+            entities.push_back(it.path().filename());
     }
 
     return entities;
@@ -221,16 +205,11 @@ int number_of_files_by_extension_in_directory(path file_path,
     if(filesystem::is_empty(file_path))
         return 0;
 
-    directory_iterator it(file_path);
-    directory_iterator endit;
-
     if(exists(file_path))
-        while (it != endit)
+        for(const auto& it : std::filesystem::directory_iterator(file_path))
         {
-            if(is_regular_file(*it) && it->path().extension() == extension)
+            if(is_regular_file(it) && it.path().extension() == extension)
                 ++counter;
-
-            ++it;
         }
 
     return counter;
@@ -251,15 +230,10 @@ int number_of_files_by_extension_in_directory_recursively(path file_path,
         throw runtime_error("directory does not exist");
     }
 
-    recursive_directory_iterator it(file_path);
-    recursive_directory_iterator endit;
-
-    while (it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(is_regular_file(*it) && it->path().extension() == extension)
+        if(is_regular_file(it) && it.path().extension() == extension)
             ++counter;
-
-        ++it;
     }
 
     return counter;
@@ -278,15 +252,10 @@ void get_files_by_extension_in_directory(filesystem::path file_path, string exte
         throw runtime_error("directory does not exist");
     }
 
-    directory_iterator it(file_path);
-    directory_iterator endit;
-
-    while (it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(is_regular_file(*it) && it->path().extension() == extension)
-            files.push_back(it->path().filename());
-
-        ++it;
+        if(is_regular_file(it) && it.path().extension() == extension)
+            files.push_back(it.path().filename());
     }
 }
 
@@ -303,15 +272,10 @@ void get_files_by_extension_in_directory_recursively(path file_path,
         throw runtime_error("directory does not exist");
     }
 
-    recursive_directory_iterator it(file_path);
-    recursive_directory_iterator endit;
-
-    while (it != endit)
+    for(const auto& it : std::filesystem::directory_iterator(file_path))
     {
-        if(is_regular_file(*it) && it->path().extension() == extension)
-            files.push_back(it->path().filename());
-
-        ++it;
+        if(is_regular_file(it) && it.path().extension() == extension)
+            files.push_back(it.path().filename());
     }
 }
 
